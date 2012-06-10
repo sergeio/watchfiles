@@ -1,0 +1,30 @@
+#! /bin/bash
+# Watches the current directory for changes (recursively) and executes
+# the command specified on change.
+
+if [ ! -n "$1" ]; then
+    echo "Usage: watchdir command [-d directory]"
+fi
+
+curdir=`pwd`
+curdir=${curdir//\//.}
+dirfile="/tmp/$curdir"
+
+cmd="$1"
+shift
+
+while getopts d: opt; do
+    case $opt in
+        d) directories="$directories $OPTARG";;
+    esac
+done
+
+while sleep .5; do
+    contents=`echo $directories | xargs ls -RTl`
+    if [ ! -e $dirfile ] ||
+        ! diff -q <(cat $dirfile) <(echo $contents) > /dev/null
+    then
+        echo $contents > $dirfile
+        $cmd
+    fi
+done
