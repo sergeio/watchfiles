@@ -2,7 +2,7 @@
 # Takes a list of files from STDIN and executes the command specified on change
 
 if [ ! -n "$1" ]; then
-    echo "Usage: watchdir command"
+    echo "Usage: watchfiles command"
 fi
 
 curdir=`pwd`
