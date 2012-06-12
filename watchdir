@@ -1,9 +1,8 @@
 #! /bin/bash
-# Watches the current directory for changes (recursively) and executes
-# the command specified on change.
+# Takes a list of files from STDIN and executes the command specified on change
 
 if [ ! -n "$1" ]; then
-    echo "Usage: watchdir command [-d directory]"
+    echo "Usage: watchdir command"
 fi
 
 curdir=`pwd`
@@ -12,19 +11,18 @@ dirfile="/tmp/$curdir"
 
 cmd="$1"
 shift
+args="$@"
 
-while getopts d: opt; do
-    case $opt in
-        d) directories="$directories $OPTARG";;
-    esac
+while read watchfile; do
+    files="$files $watchfile"
 done
 
 while sleep .5; do
-    contents=`echo $directories | xargs ls -RTl`
+    contents=$(ls -lT $files)
     if [ ! -e $dirfile ] ||
         ! diff -q <(cat $dirfile) <(echo $contents) > /dev/null
     then
         echo $contents > $dirfile
-        $cmd
+        $cmd $args
     fi
 done

@@ -1,10 +1,10 @@
 watchdir
 ========
 
-Execute a command when any file in the directories specified is changed
+Execute a command when any file from STDIN is modified
 
 Example usage:
 --------------
 ```
-watchdir "make test" -d tests/ -d src/
+find tests/ src/ -type f | watchdir make test
 ```
