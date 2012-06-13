@@ -20,10 +20,10 @@ done
 
 while sleep .5; do
     contents=$(ls -lT $files)
-    if [ ! -e $dirfile ] ||
-        ! diff -q <(cat $dirfile) <(echo $contents) > /dev/null
+    if [ ! -e "$dirfile" ] ||
+        ! diff -q <(cat "$dirfile") <(echo $contents) > /dev/null
     then
-        echo $contents > $dirfile
+        echo $contents > "$dirfile"
         $cmd $args
     fi
 done
