@@ -3,6 +3,7 @@
 
 if [ ! -n "$1" ]; then
     echo "Usage: watchfiles command"
+    exit 1
 fi
 
 curdir=`pwd`
