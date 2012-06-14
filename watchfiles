@@ -6,8 +6,7 @@ if [ ! -n "$1" ]; then
     exit 1
 fi
 
-curdir=`pwd`
-curdir=${curdir//\//.}
+curdir=`pwd | sed -e 's/\//./g'`
 dirfile="/tmp/$curdir"
 
 cmd="$1"
