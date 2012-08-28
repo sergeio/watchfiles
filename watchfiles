@@ -7,7 +7,7 @@ if [ ! -n "$1" ]; then
 fi
 
 curdir=`pwd | sed -e 's/\//./g'`
-dirfile="/tmp/$curdir"
+dirfile="/tmp/$curdir$RANDOM"
 
 cmd="$1"
 shift
