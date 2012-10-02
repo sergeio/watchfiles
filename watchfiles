@@ -12,8 +12,7 @@ done
 
 while sleep .5; do
     contents=$(ls -lT $files)
-    if [ "$contents" != "$old_contents" ]
-    then
+    if [ "$contents" != "$old_contents" ]; then
         old_contents=$contents
         eval "$*"
     fi
