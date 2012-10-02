@@ -6,19 +6,15 @@ if [ ! -n "$1" ]; then
     exit 1
 fi
 
-curdir=`pwd | sed -e 's/\//./g'`
-dirfile="/tmp/$curdir$RANDOM"
-
 while read watchfile; do
     files="$files $watchfile"
 done
 
 while sleep .5; do
     contents=$(ls -lT $files)
-    if [ ! -e "$dirfile" ] ||
-        ! diff -q <(cat "$dirfile") <(echo $contents) > /dev/null
+    if [ "$contents" != "$old_contents" ]
     then
-        echo $contents > "$dirfile"
+        old_contents=$contents
         eval "$*"
     fi
 done
