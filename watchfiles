@@ -9,10 +9,6 @@ fi
 curdir=`pwd | sed -e 's/\//./g'`
 dirfile="/tmp/$curdir$RANDOM"
 
-cmd="$1"
-shift
-args="$@"
-
 while read watchfile; do
     files="$files $watchfile"
 done
@@ -23,6 +19,6 @@ while sleep .5; do
         ! diff -q <(cat "$dirfile") <(echo $contents) > /dev/null
     then
         echo $contents > "$dirfile"
-        $cmd $args
+        eval "$*"
     fi
 done
