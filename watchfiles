@@ -6,12 +6,18 @@ if [ ! -n "$1" ]; then
     exit 1
 fi
 
+# `ls` is different on OSX and Linux
+lsargs='-lT'
+if [ -d /proc ]; then
+    lsargs='-l --full-time'
+fi
+
 while read watchfile; do
     files="$files $watchfile"
 done
 
 while sleep .5; do
-    contents=$(ls -lT $files)
+    contents=$(ls $lsargs $files)
     if [ "$contents" != "$old_contents" ]; then
         old_contents=$contents
         eval "$*"
