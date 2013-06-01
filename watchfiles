@@ -2,7 +2,7 @@
 # Takes a list of files from STDIN and executes the command specified on change
 
 if [ ! -n "$1" ]; then
-    echo "Usage: watchfiles command"
+    echo "Usage: find files/ -type='*.py' | watchfiles 'command'"
     exit 1
 fi
 
