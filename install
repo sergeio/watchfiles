@@ -1,0 +1,7 @@
+#! /bin/bash
+
+
+mkdir -p ~/bin
+
+MYDIR=$(cd $(dirname $0); pwd)
+ln -s $MYDIR/watchfiles ~/bin/
