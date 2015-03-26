@@ -57,5 +57,10 @@ Or for those pesky config files:
 
 ```bash
 # Reload service when its config file is modified
-ls path/to/config | watchfiles service reload appropriate-service
+ls path/to/config | watchfiles service appropriate-service reload
+```
+
+Execute the script you are working on as you go:
+```bash
+ls myscript.sh | watchfiles ./myscript
 ```
