@@ -13,11 +13,11 @@ if [ -d /proc ]; then
 fi
 
 while read watchfile; do
-    files="$files $watchfile"
+    files="$files \"$watchfile\""
 done
 
 while sleep .5; do
-    contents=$(ls $lsargs $files)
+    contents=$(echo "$files" | xargs ls $lsargs)
     if [ "$contents" != "$old_contents" ]; then
         old_contents=$contents
         eval "$*"
