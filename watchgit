@@ -1,0 +1,22 @@
+#! /bin/bash
+# Executes the command specified when file in git directory changed
+
+if [ ! -n "$1" ]; then
+    echo "Usage: watchgit 'command'"
+    exit 1
+fi
+
+# `ls` is different on OSX and Linux
+lsargs='-lT'
+if [ -d /proc ]; then
+    lsargs='-l --full-time'
+fi
+
+while sleep .5; do
+    files=$(git status --short | awk '{print $NF}')
+    contents=$(echo "$files" | xargs ls $lsargs)
+    if [ "$contents" != "$old_contents" ]; then
+        old_contents=$contents
+        eval "$*"
+    fi
+done

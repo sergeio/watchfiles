@@ -5,3 +5,5 @@ mkdir -p ~/bin
 
 MYDIR=$(cd $(dirname $0); pwd)
 ln -s $MYDIR/watchfiles ~/bin/
+MYDIR=$(cd $(dirname $0); pwd)
+ln -s $MYDIR/watchgit ~/bin/
